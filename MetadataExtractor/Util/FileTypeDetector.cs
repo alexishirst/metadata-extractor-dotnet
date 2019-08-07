@@ -80,6 +80,9 @@ namespace MetadataExtractor.Util
 
         private static readonly IEnumerable<Func<byte[], FileType>> _fixedCheckers = new Func<byte[], FileType>[]
         {
+            bytes => bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftypheic"))
+                ? FileType.Heic
+                : FileType.Unknown,
             bytes => bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftyp"))
                 ? FileType.QuickTime
                 : FileType.Unknown
